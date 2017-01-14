@@ -1,0 +1,62 @@
+[
+    {
+        "name": "naukrilibs/dbframework",
+        "version": "v1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/dbframework.git",
+            "reference": "refs/tags/v1.0.1"
+        },
+        "type": "library",
+        "installation-source": "source"
+    },
+    {
+        "name": "naukrilibs/centrallogger",
+        "version": "v1.0.2",
+        "version_normalized": "1.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/centrallogger.git",
+            "reference": "refs/tags/v1.0.2"
+        },
+        "type": "library",
+        "installation-source": "source"
+    },
+    {
+        "name": "naukrilibs/pest",
+        "version": "v1.0.2",
+        "version_normalized": "1.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/pest.git",
+            "reference": "refs/tags/v1.0.2"
+        },
+        "type": "library",
+        "installation-source": "source"
+    },
+    {
+        "name": "naukrilibs/ncyaml",
+        "version": "v4.0.0",
+        "version_normalized": "4.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/ncyaml.git",
+            "reference": "refs/tags/v4.0.0"
+        },
+        "type": "library",
+        "installation-source": "source"
+    },
+    {
+        "name": "naukrilibs/yaml",
+        "version": "v1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/yaml.git",
+            "reference": "refs/tags/v1.0.1"
+        },
+        "type": "library",
+        "installation-source": "source"
+    }
+]

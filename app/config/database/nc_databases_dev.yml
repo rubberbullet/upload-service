@@ -1,0 +1,10 @@
+payment:
+  factory: ncPdoDatabase
+  param:
+    dsn: mysql:host=db;port=3306;dbname=payment;
+    username: root
+    password: root
+    debug: true
+    reconnect: true
+    databases:
+      payment: payment

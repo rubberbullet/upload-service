@@ -1,0 +1,25 @@
+web:
+    image: eboraas/phalcon
+    volumes:
+        - ../../../../upload-service:/var/www/service
+        - ./default.conf:/etc/nginx/sites-enabled/default.conf
+    ports:
+        - "8094:80"
+    links:
+        - db
+        - redis
+    working_dir: /var/www/service
+
+db:
+    image: naukri/mariadb
+    volumes:
+        - /data/image/db/:/var/lib/mysql
+    ports:
+        - "3376:3306"
+
+redis:
+  image: naukri/redis
+  volumes:
+    - /data/redis/image/:/data
+  ports:
+    - "6880:6380"

@@ -1,0 +1,10 @@
+payment:
+  factory: ncPdoDatabase
+  param:
+    dsn: mysql:host={ffdb1.resdex.com};dbname=payment;
+    username: ffuser
+    password: n0k1A34$10
+    debug: true
+    reconnect: true
+    databases:
+      payment: payment

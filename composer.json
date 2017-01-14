@@ -1,0 +1,12 @@
+{
+    "name": "meesho/image",
+    "description": "Meesho image upload and download service",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Meesho\\Image\\": "src/Meesho/Image"
+        }
+    },
+    "require": {
+    }
+}

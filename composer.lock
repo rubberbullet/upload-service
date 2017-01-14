@@ -1,0 +1,68 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "865ff53a3f8b674ec932412a919fb893",
+    "packages": [
+        {
+            "name": "naukrilibs/centrallogger",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/centrallogger.git",
+                "reference": "refs/tags/v1.0.2"
+            },
+            "type": "library"
+        },
+        {
+            "name": "naukrilibs/dbframework",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/dbframework.git",
+                "reference": "refs/tags/v1.0.1"
+            },
+            "type": "library"
+        },
+        {
+            "name": "naukrilibs/ncyaml",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/ncyaml.git",
+                "reference": "refs/tags/v4.0.0"
+            },
+            "type": "library"
+        },
+        {
+            "name": "naukrilibs/pest",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/pest.git",
+                "reference": "refs/tags/v1.0.2"
+            },
+            "type": "library"
+        },
+        {
+            "name": "naukrilibs/yaml",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "http://gitdeployer:gitdeployer@gitlab.infoedge.com/naukrilibs/yaml.git",
+                "reference": "refs/tags/v1.0.1"
+            },
+            "type": "library"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
