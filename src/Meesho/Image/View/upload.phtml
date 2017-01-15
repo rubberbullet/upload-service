@@ -59,10 +59,23 @@
                 top: 150px;
                 left: 120px;
             }
+            .msg{
+                position: absolute;
+                font-weight: 400;
+                top: -65px;
+                left: 100px;
+            }
+            .green{
+                color: #006600;
+            }
+            .red{
+                color: #ff0000;
+            }
         </style>
     </head>
     <body>
         <form enctype="multipart/form-data" action="/upload" method="post" name="upload form" class="form" id="form">
+            <p id="msg" class="msg"></p>
             <input id="uploadFile" class="uploadFile" placeholder="Choose Image" disabled="disabled" />
             <div class="fileUpload btn btn-primary">
                 <span>Meesho Image</span>
@@ -70,7 +83,7 @@
             </div>
             </br>
             <div class="upDiv">
-                <input id="uploadBtn" type="button" class="upload" value="Upload" onclick="upload()"/>
+                <input id="uploadBtn" type="button" class="upload" value="Upload Image" onclick="upload()"/>
             </div>
             <input type="hidden" id="key" name="key" value="">
         </form>
@@ -90,11 +103,20 @@
                 processData: false,
                 success: function (data) {
                     var json = $.parseJSON(data);
-                    $('#key').val(json.key);
+                    if (json.success === true && $.trim(json.error) === "") {
+                        $('#key').val(json.key);
+                        $("#msg").addClass("green").removeClass("red").text("");
+                    } else {
+                        $("#msg").addClass("red").removeClass("green").text(json.error);
+                    }
                 }
             });
         });
         function upload() {
+            if (validateUpload() == false) {
+                $("#msg").addClass("red").removeClass("green");
+                return false;
+            }
             var formData = new FormData();
             $key = $('#key').val();
             formData.append('key', $key);
@@ -106,9 +128,25 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $('#key').val('');
+                    var json = $.parseJSON(data);
+                    if (json.success === true) {
+                        $('#key').val('');
+                        $("#msg").addClass("green").removeClass("red").text("Uploaded Image Successfully");
+                    } else {
+                        $("#msg").addClass("red").removeClass("green").text(json.error);
+                    }
                 }
             });
+        }
+        function validateUpload() {
+            if ($.trim($("#uploadFile").val()) == '') {
+                $("#msg").text("Please choose an Image !!!");
+                return false;
+            } else if ($.trim($("#key").val()) == '') {
+                $("#msg").text("Some error occurred. Please choose Image again !!!");
+                return false;
+            }
+            return true;
         }
     </script>
 </html>

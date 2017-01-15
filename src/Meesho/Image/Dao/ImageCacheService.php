@@ -19,19 +19,35 @@ class ImageCacheService
     }
 
     public function getIncrImageCounter() {
-        return $this->redisConn->incr('counter');
+        try {
+            return $this->redisConn->incr('counter');
+        } catch (\Exception $e) {
+            throw new RedisException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     public function insertCacheImage($key, $fileData) {
-        return $this->redisConn->hmset($key, $fileData);
+        try {
+            return $this->redisConn->hmset($key, $fileData);
+        } catch (\Exception $e) {
+            throw new RedisException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     public function getCacheImage($key) {
-        return $this->redisConn->hgetall($key);
+        try {
+            return $this->redisConn->hgetall($key);
+        } catch (\Exception $e) {
+            throw new RedisException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     public function deleteCacheImage($key) {
-        return $this->redisConn->del($key);
+        try {
+            return $this->redisConn->del($key);
+        } catch (\Exception $e) {
+            throw new RedisException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
 }

@@ -14,12 +14,12 @@ use Meesho\Image\Model\ImageModel;
 class ImageService
 {
 
-    public function getCounterId() {
+    private function getCounterId() {
         $imageCache = new ImageCacheService();
         return $imageCache->getIncrImageCounter();
     }
 
-    public function deleteCache($key) {
+    private function deleteCache($key) {
         $imageCache = new ImageCacheService();
         return $imageCache->deleteCacheImage($key);
     }
@@ -50,13 +50,13 @@ class ImageService
         $this->deleteCache($counterId);
     }
 
-    public function putResizedImage($pixel, $originalPath, $newPath) {
+    private function putResizedImage($pixel, $originalPath, $newPath) {
         $imagick = new \Imagick(realpath($originalPath));
         $imagick->scaleImage($pixel, 0, false);
         $imagick->writeImage($newPath);
     }
 
-    public function insertImageDetail(ImageModel $image) {
+    private function insertImageDetail(ImageModel $image) {
         $imageDao = new ImageDao();
         $imageDao->insertImageDetail($image);
     }
@@ -94,7 +94,18 @@ class ImageService
         return $counterId;
     }
 
-    public function getImageModel($counterId, $name, $modName, $path, $type = 'O') {
+    public function validateImage($content) {
+        $errMsg = "";
+        $size = getimagesize($content);
+        if ($size === false) {
+            $errMsg = "Please upload a proper Image";
+        } else if ($size > 2000000) {
+            $errMsg = "Uploaded image should be less than 2 MB";
+        }
+        return $errMsg;
+    }
+
+    private function getImageModel($counterId, $name, $modName, $path, $type = 'O') {
         $image = new ImageModel();
         $image->setImageId($counterId);
         $image->setName($name);

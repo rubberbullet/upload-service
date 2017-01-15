@@ -38,24 +38,42 @@ $app->get('/', function() {
 });
 
 $app->post('/upload', function() use ($app) {
-    $imageService = new ImageService();
-    $fileContent = file_get_contents($_FILES["image"]["tmp_name"]);
-    $counterId = $imageService->handleImage($_FILES["image"]["name"], $_FILES["image"]["type"], $_FILES["image"]["size"], $fileContent);
     $response = new Phalcon\Http\Response();
-    $response->setJsonContent(array('key' => $counterId, 'errorMsg' => '', 'errorCount' => ''));
+    try {
+        $imageService = new ImageService();
+        $fileContent = file_get_contents($_FILES["image"]["tmp_name"]);
+        $errMsg = $imageService->validateImage($fileContent);
+        $counterId = $imageService->handleImage($_FILES["image"]["name"], $_FILES["image"]["type"], $_FILES["image"]["size"], $fileContent);
+        $response->setJsonContent(array('success' => true, 'key' => $counterId, 'error' => $errMsg));
+    } catch (\Exception $e) {
+        $response->setJsonContent(array('success' => false, 'key' => "", 'error' => "Sorry, there was an error saving your file"));
+    }
     $response->send();
 });
 
 $app->post('/save', function() use ($app) {
-    $requestParam = $app->request->getPost();
-    $imageService = new ImageService();
-    $imageService->saveImage($requestParam['key']);
+    $response = new Phalcon\Http\Response();
+    try {
+        $requestParam = $app->request->getPost();
+        $imageService = new ImageService();
+        $imageService->saveImage($requestParam['key']);
+        $response->setJsonContent(array('success' => true, 'error' => ""));
+    } catch (\Exception $e) {
+        $response->setJsonContent(array('success' => false, 'error' => "Sorry, there was an error uploading your file"));
+    }
+    $response->send();
 });
 
 $app->get('/download', function() use ($app) {
-
-    $imageService = new ImageService();
-    $imageService->downloadImage();
+    $response = new Phalcon\Http\Response();
+    try {
+        $imageService = new ImageService();
+        $imageService->downloadImage();
+        $response->setJsonContent(array('success' => true, 'error' => ""));
+    } catch (\Exception $e) {
+        $response->setJsonContent(array('success' => false, 'error' => "Sorry, there was an error downloading your file"));
+    }
+    $response->send();
 });
 
 $app->handle();

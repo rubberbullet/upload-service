@@ -1,5 +1,7 @@
 <?php
 
+namespace Meesho\Image\Dao;
+
 /**
  * Description of RedisException
  *
@@ -7,6 +9,7 @@
  */
 class RedisException extends \Exception
 {
+
     public function __construct($message, $code, $previous) {
         parent::__construct($message, $code, $previous);
     }
