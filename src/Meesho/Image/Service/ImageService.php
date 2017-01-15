@@ -1,7 +1,9 @@
 <?php
+
 namespace Meesho\Image\Service;
 
 use Meesho\Image\Dao\ImageCacheService;
+
 /**
  * Description of ImageService
  *
@@ -9,36 +11,48 @@ use Meesho\Image\Dao\ImageCacheService;
  */
 class ImageService
 {
-    public function getCounterId(){
+
+    public function getCounterId() {
         $imageCache = new ImageCacheService();
-        $imageCache->getIncrImageCounter();
+        return $imageCache->getIncrImageCounter();
     }
-    
-    public function insertCacheImage(){
-           
-    }
-    
-    public function deleteCacheImage(){
+
+    public function deleteCache() {
         
     }
-    
-    public function getCacheImageDetail(){
+
+    private function getCacheImage($key) {
+        $imageCache = new ImageCacheService();
+        return $imageCache->getCacheImage($key);
+    }
+
+    public function saveImage($counterId) {
+        $target_dir = "/tmp/";
+        $cacheImage = $this->getCacheImage($counterId);
+        $fileContent = $cacheImage['content'];
+        $fileInfo = pathinfo($cacheImage['name']);
+        $path = $target_dir . $counterId . "_O." . $fileInfo["extension"];
+        file_put_contents($path, $fileContent);
+    }
+
+    public function getResizedImage() {
         
     }
-    
-    public function saveImage(){
+
+    public function insertImageDetail() {
         
     }
-    
-    public function getResizedImage(){
+
+    public function getImageDetail() {
         
     }
-    
-    public function insertImageDetail(){
-        
+
+    public function handleImage($name, $type, $size, $content) {
+        $fileData = array('name' => $name, 'type' => $type, 'size' => $size, 'content' => $content);
+        $counterId = $this->getCounterId();
+        $imageCache = new ImageCacheService();
+        $imageCache->insertCacheImage($counterId, $fileData);
+        return $counterId;
     }
-    
-    public function getImageDetail(){
-        
-    }
+
 }

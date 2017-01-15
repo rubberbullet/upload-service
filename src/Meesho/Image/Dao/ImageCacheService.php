@@ -12,9 +12,22 @@ use Meesho\Image\Util\RedisManager;
 class ImageCacheService
 {
 
+    private $redisConn;
+
+    public function __construct() {
+        $this->redisConn = RedisManager::getInstance()->getRedisConnection('meeshoRedis');
+    }
+
     public function getIncrImageCounter() {
-        $redisConn = RedisManager::getInstance()->getRedisConnection('meeshoRedis');
-        $redisConn->set('counter', 1);
+        return $this->redisConn->incr('counter');
+    }
+
+    public function insertCacheImage($key, $fileData) {
+        return $this->redisConn->hmset($key, $fileData);
+    }
+
+    public function getCacheImage($key) {
+        return $this->redisConn->hgetall($key);
     }
 
 }

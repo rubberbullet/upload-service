@@ -1,5 +1,7 @@
 <?php
+
 use \Meesho\Image\Service\ImageService;
+use Meesho\Image\Dao\ImageDao;
 
 error_reporting(E_ALL);
 $loader = new \Phalcon\Loader();
@@ -37,15 +39,23 @@ $app->get('/', function() {
 });
 
 $app->post('/upload', function() use ($app) {
-    echo Phalcon\Version::get();die();
-    $requestParams = $app->request->getPost();
-    $imageServ = new ImageService();
-    $imageServ->getCounterId();
-//    $pg = \Naukri\Payment\Service\PaymentHandlerFactory::getPaymentHandler();
-//    $resp = $pg->getTemplate($requestParams);
-//    $response = new Phalcon\Http\Response();
-//    $response->setJsonContent($resp);
-//    $response->send();
+    $imageDao = new ImageDao();
+    $imageDao->getAllImage();
+    die();
+    $imageDao->insertImageDetail();
+    die();
+    $imageService = new ImageService();
+    $fileContent = file_get_contents($_FILES["image"]["tmp_name"]);
+    $counterId = $imageService->handleImage($_FILES["image"]["name"], $_FILES["image"]["type"], $_FILES["image"]["size"], $fileContent);
+    $response = new Phalcon\Http\Response();
+    $response->setJsonContent(array('key' => $counterId, 'errorMsg' => '', 'errorCount' => ''));
+    $response->send();
+});
+
+$app->post('/save', function() use ($app) {
+    $requestParam = $app->request->getPost();
+    $imageService = new ImageService();
+    $imageService->saveImage($requestParam['key']);
 });
 
 $app->get('/download', function() use ($app) {

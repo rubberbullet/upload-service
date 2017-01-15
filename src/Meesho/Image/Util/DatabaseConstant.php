@@ -10,13 +10,6 @@ namespace Meesho\Image\Util;
 class DatabaseConstant
 {
 
-    const database = array('meeshoDB');
-    const meeshoDB = [
-        'host' => 'db',
-        'dbname' => 'meesho',
-        'port' => 3306,
-        'username' => 'root',
-        'password' => 'root'
-    ];
+    public static $database = array('meeshoDB' => ['host' => 'db', 'dbname' => 'meesho', 'port' => 3306, 'username' => 'root', 'password' => 'root']);
 
 }

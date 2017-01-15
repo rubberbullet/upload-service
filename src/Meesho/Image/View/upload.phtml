@@ -62,11 +62,11 @@
         </style>
     </head>
     <body>
-        <form action="" method="" name="upload form" class="form" id="form">
+        <form enctype="multipart/form-data" action="/upload" method="post" name="upload form" class="form" id="form">
             <input id="uploadFile" class="uploadFile" placeholder="Choose Image" disabled="disabled" />
             <div class="fileUpload btn btn-primary">
                 <span>Meesho Image</span>
-                <input id="imageBtn" type="file" class="image" />
+                <input id="imageBtn" type="file" class="image" name="image" />
             </div>
             </br>
             <div class="upDiv">
@@ -78,16 +78,17 @@
         $("#imageBtn").on("change", function () {
             var file = this.value;
             var formData = new FormData();
-            formData.append("upload", $("#imageBtn")[0].files[0]);
+            formData.append("image", $("#imageBtn")[0].files[0]);
             $("#uploadFile").val(file.split('\\').pop());
             $.ajax({
                 type: "POST",
                 url: "/upload",
                 data: formData,
                 cache: false,
+                contentType: false,
                 processData: false,
                 success: function (data) {
-                   alert("Success");
+                    alert("Success");
                 }
             });
         });

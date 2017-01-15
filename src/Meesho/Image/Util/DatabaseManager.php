@@ -3,7 +3,7 @@
 namespace Meesho\Image\Util;
 
 use Phalcon\Db\Adapter\Pdo\Mysql;
-use DatabaseConstant;
+use Meesho\Image\Util\DatabaseConstant;
 
 /**
  * Description of DatabaseManager
@@ -26,9 +26,9 @@ class DatabaseManager
     }
 
     private function __construct() {
-        $dbArr = DatabaseConstant::database;
-        foreach ($dbArr as $db) {
-            $this->databases[$db] = new Mysql(RedisConstant::$db);
+        $dbArr = DatabaseConstant::$database;
+        foreach ($dbArr as $dbName => $config) {
+            $this->databases[$dbName] = new Mysql($config);
         }
     }
 
