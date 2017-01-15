@@ -94,13 +94,13 @@ class ImageService
         return $counterId;
     }
 
-    public function validateImage($content) {
+    public function validateImage($file, $size) {
         $errMsg = "";
-        $size = getimagesize($content);
-        if ($size === false) {
+        $image = getimagesize($file);
+        if ($image === false) {
             $errMsg = "Please upload a proper Image";
-        } else if ($size > 2000000) {
-            $errMsg = "Uploaded image should be less than 2 MB";
+        } else if ($size > 1000000) {
+            $errMsg = "Uploaded image should be less than 1 MB";
         }
         return $errMsg;
     }

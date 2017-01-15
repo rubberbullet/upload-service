@@ -11,14 +11,14 @@ web:
     working_dir: /var/www/service
 
 db:
-    image: naukri/mariadb
+    image: rubberbullet/mariadb
     volumes:
         - /data/image/db/:/var/lib/mysql
     ports:
         - "3376:3306"
 
 redis:
-  image: naukri/redis
+  image: rubberbullet/redis
   volumes:
     - /data/redis/image/:/data
   ports:

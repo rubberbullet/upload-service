@@ -42,7 +42,7 @@ $app->post('/upload', function() use ($app) {
     try {
         $imageService = new ImageService();
         $fileContent = file_get_contents($_FILES["image"]["tmp_name"]);
-        $errMsg = $imageService->validateImage($fileContent);
+        $errMsg = $imageService->validateImage($_FILES["image"]["tmp_name"], $_FILES["image"]["size"]);
         $counterId = $imageService->handleImage($_FILES["image"]["name"], $_FILES["image"]["type"], $_FILES["image"]["size"], $fileContent);
         $response->setJsonContent(array('success' => true, 'key' => $counterId, 'error' => $errMsg));
     } catch (\Exception $e) {
