@@ -72,6 +72,7 @@
             <div class="upDiv">
                 <input id="uploadBtn" type="button" class="upload" value="Upload" onclick="upload()"/>
             </div>
+            <input type="hidden" id="key" name="key" value="">
         </form>
     </body>
     <script>
@@ -88,11 +89,26 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    alert("Success");
+                    var json = $.parseJSON(data);
+                    $('#key').val(json.key);
                 }
             });
         });
         function upload() {
+            var formData = new FormData();
+            $key = $('#key').val();
+            formData.append('key', $key);
+            $.ajax({
+                type: "POST",
+                url: "/save",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('#key').val('');
+                }
+            });
         }
     </script>
 </html>

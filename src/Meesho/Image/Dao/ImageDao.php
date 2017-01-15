@@ -4,6 +4,7 @@ namespace Meesho\Image\Dao;
 
 use Meesho\Image\Util\DatabaseManager;
 use Phalcon\Db\Column;
+use Meesho\Image\Model\ImageModel;
 
 /**
  * Description of ImageDao
@@ -19,13 +20,28 @@ class ImageDao
         $this->dbConn = DatabaseManager::getInstance()->getDatabaseConnection('meeshoDB');
     }
 
-    public function insertImageDetail() {
+    public function insertImageDetail(ImageModel $image) {
         $sql = $this->dbConn->prepare('INSERT INTO IMAGE(IMAGE_ID, NAME, MOD_NAME, LOCATION, TYPE) VALUES(:IMAGE_ID, :NAME, :MOD_NAME, :LOCATION, :TYPE)');
-        $result = $this->dbConn->executePrepared($sql, ['IMAGE_ID' => 123, 'NAME' => 'test', 'MOD_NAME' => 'testMod', 'LOCATION' => '\apps\abc', 'TYPE' => 'S'], ['IMAGE_ID' => Column::BIND_PARAM_INT, 'NAME' => Column::BIND_PARAM_STR, 'MOD_NAME' => Column::BIND_PARAM_STR, 'LOCATION' => Column::BIND_PARAM_STR, 'TYPE' => Column::BIND_PARAM_STR]);
+        return $this->dbConn->executePrepared($sql, ['IMAGE_ID' => $image->getImageId(), 'NAME' => $image->getName(), 'MOD_NAME' => $image->getModName(), 'LOCATION' => $image->getLocation(), 'TYPE' => $image->getType()], ['IMAGE_ID' => Column::BIND_PARAM_INT, 'NAME' => Column::BIND_PARAM_STR, 'MOD_NAME' => Column::BIND_PARAM_STR, 'LOCATION' => Column::BIND_PARAM_STR, 'TYPE' => Column::BIND_PARAM_STR]);
     }
 
     public function getAllImage() {
-        return $this->dbConn->fetchAll("SELECT IMAGE_ID, NAME, MOD_NAME, LOCATION, TYPE FROM IMAGE");
+        $imageArr = $this->dbConn->fetchAll("SELECT IMAGE_ID, NAME, MOD_NAME, LOCATION, TYPE FROM IMAGE");
+        return $this->getImageModelArr($imageArr);
+    }
+
+    private function getImageModelArr($imageArr) {
+        $imageModelArr = array();
+        foreach ($imageArr as $image) {
+            $imageModel = new ImageModel();
+            $imageModel->setImageId($image['IMAGE_ID']);
+            $imageModel->setName($image['NAME']);
+            $imageModel->setModName($image['MOD_NAME']);
+            $imageModel->setLocation($image['LOCATION']);
+            $imageModel->setType($image['TYPE']);
+            $imageModelArr[] = $imageModel;
+        }
+        return $imageModelArr;
     }
 
 }

@@ -4,11 +4,46 @@
         <title>Download Image</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <style>
-            
+            input#downloadBtn{
+                cursor:pointer;
+                padding:5px 25px;
+                background:#35b128;
+                border:1px solid #33842a;
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+                -webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+                -moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+                box-shadow: 0 0 4px rgba(0,0,0, .75);
+                color:#f3f3f3;
+                font-size:1.1em;
+            }
+
+            input#uploadBtn:hover, input#uploadBtn:focus{
+                background-color :#399630;
+                -webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
+                -moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
+                box-shadow: 0 0 1px rgba(0,0,0, .75);
+            }
+            .downDiv{
+                position: relative;
+                font-size: 36px;
+                font-weight: 700;
+                top: 230px;
+                left: 385px;
+            } 
         </style>    
     </head>
     <body>
-        <div class="test">Download Image</div>
+        <div class="downDiv">
+            <input id="downloadBtn" type="button" class="download" value="Download Meesho Image" onclick="download()"/>
+        </div>
     </body>
+    <script>
+        function download() {
+            window.location = "/download";
+        }
+    </script>
 </html>

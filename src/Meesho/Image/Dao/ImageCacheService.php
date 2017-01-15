@@ -30,4 +30,8 @@ class ImageCacheService
         return $this->redisConn->hgetall($key);
     }
 
+    public function deleteCacheImage($key) {
+        return $this->redisConn->del($key);
+    }
+
 }

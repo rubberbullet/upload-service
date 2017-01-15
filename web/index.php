@@ -1,7 +1,6 @@
 <?php
 
 use \Meesho\Image\Service\ImageService;
-use Meesho\Image\Dao\ImageDao;
 
 error_reporting(E_ALL);
 $loader = new \Phalcon\Loader();
@@ -39,11 +38,6 @@ $app->get('/', function() {
 });
 
 $app->post('/upload', function() use ($app) {
-    $imageDao = new ImageDao();
-    $imageDao->getAllImage();
-    die();
-    $imageDao->insertImageDetail();
-    die();
     $imageService = new ImageService();
     $fileContent = file_get_contents($_FILES["image"]["tmp_name"]);
     $counterId = $imageService->handleImage($_FILES["image"]["name"], $_FILES["image"]["type"], $_FILES["image"]["size"], $fileContent);
@@ -60,14 +54,8 @@ $app->post('/save', function() use ($app) {
 
 $app->get('/download', function() use ($app) {
 
-    $requestParams = $app->request->getJsonRawBody(true);
-
-//    $apiMgr = new Naukri\Payment\Api\TransactionStatusApi(Naukri\Payment\Service\TransactionManagerFactory::getTransactionManager());
-//    $resp = $apiMgr->getTransactionStatus($requestParams['REFID']);
-//    $response = new Phalcon\Http\Response();
-//    $response->setJsonContent($resp);
-//    $response->setContentType('application/json')->sendHeaders();
-//    $response->send();
+    $imageService = new ImageService();
+    $imageService->downloadImage();
 });
 
 $app->handle();
